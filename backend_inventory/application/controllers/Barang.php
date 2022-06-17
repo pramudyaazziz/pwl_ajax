@@ -20,7 +20,7 @@ class Barang extends CI_Controller
 							<td>' . $value->nama_barang . '</td>
 							<td>' . $value->deskripsi . '</td>
 							<td>' . $value->stok . '</td>
-							<td>Read | Hapus | <a href="#' . $value->id_barang . '" class="linkEditBarang">Edit</td>
+							<td>Read | <a href="#' . $value->id_barang . '" class="linkHapusBarang">Hapus</a> | <a href="#' . $value->id_barang . '" class="linkEditBarang">Edit</a></td>
 						</tr>';
 		}
 
@@ -82,6 +82,23 @@ class Barang extends CI_Controller
 		} else {
 			$data_output = array('sukses' => 'tidak');
 		}
+		echo json_encode($data_output);
+	}
+	public function delete_data()
+	{
+		$this->load->model('Barang_model');
+		$this->db->trans_start();
+		$id_barang = $this->input->get('id_barang');
+		$this->Barang_model->hapus_data($id_barang);
+
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			$data_output = array('sukses' => 'tidak', 'pesan' => 'Gagal Hapus Data Barang');
+		} else {
+			$this->db->trans_commit();
+			$data_output = array('sukses' => 'ya', 'pesan' => 'Berhasil Hapus Data Barang');
+		}
+
 		echo json_encode($data_output);
 	}
 }

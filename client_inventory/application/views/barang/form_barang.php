@@ -72,17 +72,31 @@ form-control-line form-user-input" name="nama_barang" id="nama_barang">
 			type: 'GET',
 			success: function(data, status, xhr) {
 				var data_obj = JSON.parse(data);
-				if (data_obj['sukses'] == 'ya') {
-					var detail = data_obj['detail'];
-					$('#nama_barang').val(detail['nama_barang']);
-					$('#id_barang').val(detail['id_barang']);
-					$('#deskripsi').val(detail['deskripsi']);
-					$('#stok').val(detail['stok']);
-				} else {
-					alert('Data Tidak Ditemukan');
-				}
+				$('#nama_barang').val(data_obj['detail']['nama_barang']);
+				$('#deskripsi').val(data_obj['detail']['deskripsi']);
+				$('#id_barang').val(data_obj['detail']['id_barang']);
+				$('#stok').val(data_obj['detail']['stok']);
+			},
+			error: function(jqXHR, textStatus, errorMsg) {
+				alert('Error : ' + errorMsg);
 			}
 		});
+
+		// $.ajax(link, {
+		// 	type: 'GET',
+		// 	success: function(data, status, xhr) {
+		// 		var data_obj = JSON.parse(data);
+		// 		if (data_obj['sukses'] == 'ya') {
+		// 			var detail = data_obj['detail'];
+		// 			$('#nama_barang').val(detail['nama_barang']);
+		// 			$('#id_barang').val(detail['id_barang']);
+		// 			$('#deskripsi').val(detail['deskripsi']);
+		// 			$('#stok').val(detail['stok']);
+		// 		} else {
+		// 			alert('Data Tidak Ditemukan');
+		// 		}
+		// 	}
+		// });
 	}
 
 	<?php
