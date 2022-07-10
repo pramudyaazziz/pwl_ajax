@@ -11,6 +11,7 @@ class Barang extends CI_Controller
 		<td>Nama</td>
 		<td>Deskripsi</td>
 		<td>Stok</td>
+		<td>Foto</td>
 		<td>Aksi</td>
 		</tr>';
 
@@ -19,6 +20,8 @@ class Barang extends CI_Controller
 							<td>' . $value->nama_barang . '</td>
 							<td>' . $value->deskripsi . '</td>
 							<td>' . $value->stok . '</td>
+							<td><img src="' . base_url() . '/foto/' . $value->id_barang . '/' . $value->foto_produk . '" 
+							width="50"></td>
 							<td>Read | <a href="#' . $value->id_barang . '" class="linkHapusBarang">Hapus</a> | <a href="#' . $value->id_barang . '" class="linkEditBarang">Edit</a></td>
 						</tr>';
 		}
@@ -35,11 +38,13 @@ class Barang extends CI_Controller
 		$arr_input = array(
 			'nama_barang' => $this->input->post('nama_barang'),
 			'deskripsi' => $this->input->post('deskripsi'),
-			'stok' => $this->input->post('stok')
+			'stok' => $this->input->post('stok'),
 		);
-
 		$this->barang->insert_data($arr_input);
-
+		$id_barang = $this->db->insert_id();
+		if ($_FILES != null) {
+			$this->upload_foto($id_barang, $_FILES);
+		}
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
 			$data_output = array('sukses' => 'tidak', 'pesan' => 'Gagal Input Data Barang');
@@ -58,9 +63,10 @@ class Barang extends CI_Controller
 			'deskripsi' => $this->input->post('deskripsi'),
 			'stok' => $this->input->post('stok'),
 		);
-
 		$this->barang->update_data($id_barang, $arr_input);
-
+		if ($_FILES != null) {
+			$this->upload_foto($id_barang, $_FILES);
+		}
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
 			$data_output = array('sukses' => 'tidak', 'pesan' => 'Gagal Update Data Barang');
@@ -142,5 +148,34 @@ class Barang extends CI_Controller
 		);
 
 		echo json_encode($data_json);
+	}
+
+	private function upload_foto($id_barang, $files)
+	{
+		$gallerPath = realpath(APPPATH . '../foto');
+		$path = $gallerPath . '/' . $id_barang;
+		if (!is_dir($path)) {
+			mkdir($path, 0777, TRUE);
+		}
+		$konfigurasi = array(
+			'allowed_types' => 'jpg|png|jpeg',
+			'upload_path' => $path,
+			'overwrite' => true
+		);
+		$this->load->library('upload', $konfigurasi);
+		$_FILES['file']['name'] = $files['file']['name'];
+		$_FILES['file']['type'] = $files['file']['type'];
+		$_FILES['file']['tmp_name'] = $files['file']['tmp_name'];
+		$_FILES['file']['error'] = $files['file']['error'];
+		$_FILES['file']['size'] = $files['file']['size'];
+		if ($this->upload->do_upload('file')) {
+			$data_barang = array(
+				'foto_produk' => $this->upload->data('file_name')
+			);
+			$this->barang->update_data($id_barang, $data_barang);
+			return 'Success Upload';
+		} else {
+			return 'Error Upload';
+		}
 	}
 }
