@@ -26,5 +26,5 @@
 		})
 	}
 
-	loadKonten('http://localhost/PraktikAjax/backend_inventory/departemen/list_departemen');
+	loadKonten('http://localhost/pwl_ajax/backend_inventory/departemen/list_departemen');
 </script>

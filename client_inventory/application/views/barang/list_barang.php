@@ -66,14 +66,13 @@
 	}
 
 	function hapusData(id_barang) {
-		// var url = 'http://localhost/PraktikAjax/backend_inventory/barang/delete_data?id_barang=' + id_barang;
-		var url = 'http://localhost/PraktikAjax/backend_inventory/barang/soft_delete_data?id_barang=' + id_barang;
+		var url = 'http://localhost/pwl_ajax/backend_inventory/barang/soft_delete_data?id_barang=' + id_barang;
 		$.ajax(url, {
 			type: 'GET',
 			success: function(data, status, xhr) {
 				var objData = JSON.parse(data);
 				alert(objData['pesan']);
-				loadKonten('http://localhost/PraktikAjax/backend_inventory/barang/list_barang');
+				loadKonten('http://localhost/pwl_ajax/backend_inventory/barang/list_barang');
 			},
 			error: function(jqXHR, textStatus, errorMsg) {
 				alert('Error : ' + errorMsg);
@@ -82,7 +81,7 @@
 	}
 
 	function cariData() {
-		var url = 'http://localhost/PraktikAjax/backend_inventory/barang/cari_barang';
+		var url = 'http://localhost/pwl_ajax/backend_inventory/barang/cari_barang';
 		var dataForm = {};
 		var allInput = $('.form-input-cari');
 
@@ -104,5 +103,5 @@
 		});
 	}
 
-	loadKonten('http://localhost/PraktikAjax/backend_inventory/barang/list_barang');
+	loadKonten('http://localhost/pwl_ajax/backend_inventory/barang/list_barang');
 </script>

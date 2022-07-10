@@ -43,9 +43,9 @@
 	function sendDataPost() {
 		<?php
 		if ($titel == 'Form Edit Data Barang') {
-			echo "var link = 'http://localhost/PraktikAjax/backend_inventory/barang/update_action';";
+			echo "var link = 'http://localhost/pwl_ajax/backend_inventory/barang/update_action';";
 		} else {
-			echo "var link = 'http://localhost/PraktikAjax/backend_inventory/barang/create_action';";
+			echo "var link = 'http://localhost/pwl_ajax/backend_inventory/barang/create_action';";
 		}
 		?>
 		var dataForm = {};
@@ -70,7 +70,7 @@
 	}
 
 	function getDetail(id_barang) {
-		var link = 'http://localhost/PraktikAjax/backend_inventory/barang/detail?id_barang=' + id_barang;
+		var link = 'http://localhost/pwl_ajax/backend_inventory/barang/detail?id_barang=' + id_barang;
 
 		$.ajax(link, {
 			type: 'GET',
@@ -109,5 +109,5 @@
 	}
 	?>
 
-	loadKonten('http://localhost/PraktikAjax/backend_inventory/barang/list_barang');
+	loadKonten('http://localhost/pwl_ajax/backend_inventory/barang/list_barang');
 </script>
