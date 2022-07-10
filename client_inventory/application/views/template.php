@@ -18,6 +18,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -125,8 +126,8 @@
 								<div class="user-pic"><img src="<?= base_url('assets/xtreme_admin_lite/') ?>assets/images/users/mhs.png" alt="users" class="rounded-circle" width="40" /></div>
 								<div class="user-content hide-menu m-l-10">
 									<a href="javascript:void(0)" class="" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<h5 class="m-b-0 user-name font-medium">Pramudya Azziz Ridho Mardani <i class="fa fa-angle-down"></i></h5>
-										<span class="op-5 user-email">20.01.4488</span>
+										<h5 class="m-b-0 user-name font-medium"><?= $this->session->userdata('nama'); ?> <i class="fa fa-angle-down"></i></h5>
+										<span class="op-5 user-email"><?= $this->session->userdata('email'); ?></span>
 									</a>
 									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="Userdd">
 										<a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
@@ -135,7 +136,7 @@
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+										<a class="dropdown-item" href="<?= base_url('login/logout') ?>"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
 									</div>
 								</div>
 							</div>
